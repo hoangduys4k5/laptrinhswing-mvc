@@ -29,5 +29,6 @@ public class StudentMVC {
         StudentController sc = new StudentController(new StudentView());
         sc.nhap_danh_sach_sinh_vien();
         sc.hien_thi_danh_sach_sinh_vien();
+        sc.tim_kiem_sv_theo_sdt();
     }
 }
