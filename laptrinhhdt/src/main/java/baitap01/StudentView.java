@@ -64,30 +64,27 @@ public class StudentView {
         System.out.println("++++++++++++++++++++++++++++++++++");
     }
     
-    //Tra ve so thu tu dau tien cua sv trong mang tim kiem dc
-    private int tim_sv_theo_sdt(ArrayList<Student> students, String sdt){
-        int result = -1; //khong tim thay
-        int i = 0;
-        for(Student sv: students){
-            if (sv.getPhone().contains(sdt)){
-                result = i;
-                break;
-            }
-            i += 1;    
-        }
-        return result;
-    }
     
-    public void tim_kiem_sdt(ArrayList<Student> students){
+    
+    //view nhap thong tin can tim
+    public String nhap_sdt_can_tim(){
         System.out.println("+++++++++++++++++++++++");
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhap so dien thoai can tim kiem: ");
         String sdt = sc.nextLine();
-        int kq = tim_sv_theo_sdt(students, sdt);
-        if (kq == -1){
+        System.out.println("+++++++++++++++++++++++");
+        return sdt;
+    }
+    
+    //view in ket qua tim kiem
+    public void ket_qua_tim_kiem_sdt(ArrayList<Student> students){
+        System.out.println("+++++++++++++++++++++++");
+        if (students.isEmpty()){
             System.out.println("Khong tim thay");
         }else{
-            System.out.println("Phan tu thu " + (kq + 1));
+            for(Student sv: students){
+                System.out.println(sv.toString());
+            }
         }
         System.out.println("+++++++++++++++++++++++");
     }
