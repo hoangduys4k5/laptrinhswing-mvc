@@ -21,6 +21,8 @@ public class StudentNewView {
     //Kết quả trả về là 1 đối tượng kiểu Student
     public Student nhap_du_lieu_mot_sinh_vien(){
         //code của bạn ở đây
+        Student result = new Student();
+        return result;
     }
     
     
@@ -32,6 +34,8 @@ public class StudentNewView {
     //Hãy xây dựng view nhập thông tin cần tìm kiếm là tên của sinh viên
     public String nhap_ten_sv_can_tim_kiem(){
         //code của bạn ở đây
+        String hoten = "abc";
+        return hoten;
     }
     
     //Hãy xây dựng view bổ sung thêm một sinh viên vào mot danh sach đã có

@@ -28,16 +28,22 @@ public class MenuController {
     
     
     public void lua_chon_menu(){
-        int kq = mnview.hien_thi_menu();
-        switch(kq){
-            case 1: 
-                st_contrl.nhap_danh_sach_sinh_vien();
-                break;
-            case 2:
-                st_contrl.tim_kiem_sv_theo_sdt();
-                break;
-                
+        boolean flag = true;
+        while (flag){
+            int kq = mnview.hien_thi_menu();
+            switch(kq){
+                case 1: 
+                    st_contrl.nhap_danh_sach_sinh_vien();
+                    break;
+                case 2:
+                    st_contrl.tim_kiem_sv_theo_sdt();
+                    break;
+                case 3: 
+                    flag = false;
+                    break;
+            }
         }
+        
     }
     
     
