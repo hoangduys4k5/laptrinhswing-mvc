@@ -45,17 +45,18 @@ public class Student {
     
     //Xây dựng hàm kết nối đến cơ sở dữ liệu
     public Connection lay_ket_noi_csdl(){
+        Connection conn = null;
         try {
             //Code của bạn ở đây
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(
+            conn = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/qlht",
                     "root", "@Dmin1234");
             return conn;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return conn;
     }
     
     //Xây dựng hàm thêm 1 student vào database
@@ -188,5 +189,11 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" + "idstudent=" + idstudent + ", fullname=" + fullname + ", sdt=" + sdt + ", email=" + email + '}';
+    }
+    
     
 }
