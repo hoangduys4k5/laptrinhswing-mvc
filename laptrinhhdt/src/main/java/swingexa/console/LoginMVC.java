@@ -16,7 +16,8 @@ public class LoginMVC {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        LoginController lc = new LoginController(new LoginView());
+        LoginController lc = new LoginController(new LoginView(),
+                                        new dbutils("qlht", "3306", "root", "@Dmin1234").lay_ket_noi_csdl());
         lc.dang_nhap();
     }
     

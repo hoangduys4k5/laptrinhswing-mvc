@@ -5,6 +5,15 @@
  */
 package swingexa.gui;
 
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author MyPC
@@ -13,6 +22,7 @@ public class UserModel {
     private int iduser;
     private String username;
     private String password;
+    
 
     public UserModel() {
     }
@@ -57,5 +67,23 @@ public class UserModel {
         return "UserModel{" + "iduser=" + iduser + ", username=" + username + ", password=" + password + '}';
     }
     
-    
+    public boolean kiem_tra_account(Connection ketnoi){
+        boolean flag = false; //mac dinh account nay ko co
+        try {
+            
+            Statement stmt=ketnoi.createStatement();
+            String query = "select * from user where username = ? and password = ?";
+            PreparedStatement sql = ketnoi.prepareStatement(query);
+            sql.setString(1, this.username);
+            sql.setString(2, this.password);
+            ResultSet rs=sql.executeQuery();
+            if(rs.next()){
+                flag = true;
+            }
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
 }
