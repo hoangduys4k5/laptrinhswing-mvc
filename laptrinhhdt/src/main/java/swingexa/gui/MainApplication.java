@@ -10,12 +10,17 @@ package swingexa.gui;
  * @author MyPC
  */
 public class MainApplication extends javax.swing.JFrame {
-
+    
+    private DanhSachSinhVienFrame dssv;
+    private NhapSinhVienFrame nhapsv;
     /**
      * Creates new form MainApplication
      */
     public MainApplication() {
         initComponents();
+        this.dssv =new DanhSachSinhVienFrame();
+        this.desktopPane.add(dssv);
+        dssv.setVisible(true);
     }
 
     /**
@@ -50,7 +55,12 @@ public class MainApplication extends javax.swing.JFrame {
         fileMenu.setText("File");
 
         openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Open");
+        openMenuItem.setText("Nhập sinh viên");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setMnemonic('s');
@@ -126,6 +136,14 @@ public class MainApplication extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+        // TODO add your handling code here:
+        this.dssv.dispose();
+        this.nhapsv = new NhapSinhVienFrame();
+        this.desktopPane.add(nhapsv);
+        this.nhapsv.setVisible(true);
+    }//GEN-LAST:event_openMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
