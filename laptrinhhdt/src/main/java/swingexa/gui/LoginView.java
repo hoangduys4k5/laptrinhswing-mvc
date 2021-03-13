@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author MyPC
@@ -103,7 +104,10 @@ public class LoginView extends javax.swing.JFrame {
         dbutils db = new dbutils("qlht", "3306", "root", "@Dmin1234");
         Connection ketnoi = db.lay_ket_noi_csdl();
         if(user.kiem_tra_account(ketnoi)){
-            JOptionPane.showMessageDialog(this, "Dang nhap thanh cong", "Thong bao ket qua", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Dang nhap thanh cong", "Thong bao ket qua", JOptionPane.INFORMATION_MESSAGE);
+            MainApplication mainfrm = new MainApplication();
+            this.dispose();
+            mainfrm.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Username hoac Password sai", "Thong bao ket qua", JOptionPane.ERROR_MESSAGE);
         }
