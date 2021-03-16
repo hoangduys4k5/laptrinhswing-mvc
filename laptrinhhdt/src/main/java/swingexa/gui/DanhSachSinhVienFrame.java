@@ -5,19 +5,44 @@
  */
 package swingexa.gui;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author MyPC
  */
 public class DanhSachSinhVienFrame extends javax.swing.JInternalFrame {
+    
+    
 
     /**
      * Creates new form DanhSachSinhVienFrame
      */
     public DanhSachSinhVienFrame() {
         initComponents();
+        get_student_list();
     }
 
+    private void get_student_list(){
+        Student temp = new Student();
+        ArrayList<Student> students = temp.lay_danh_sach_sinh_vien();
+        DefaultTableModel table = (DefaultTableModel) this.jTable1.getModel();
+        for(Student sv: students){
+            table.addRow(new Object[]{sv.getIdstudent(),
+                                sv.getFullname(),
+                                sv.getSdt(),
+                                sv.getEmail()});
+//            System.out.println(sv.toString());
+        }
+        this.validate();
+    }
+    
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,17 +59,14 @@ public class DanhSachSinhVienFrame extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Fullname", "Phone", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false

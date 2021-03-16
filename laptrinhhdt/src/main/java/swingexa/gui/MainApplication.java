@@ -5,20 +5,25 @@
  */
 package swingexa.gui;
 
+import java.sql.Connection;
+
 /**
  *
  * @author MyPC
  */
 public class MainApplication extends javax.swing.JFrame {
     
-    private DanhSachSinhVienFrame dssv;
-    private NhapSinhVienFrame nhapsv;
+    public DanhSachSinhVienFrame dssv;
+    public NhapSinhVienFrame nhapsv;
+    public Connection ketnoi;
     /**
      * Creates new form MainApplication
      */
     public MainApplication() {
         initComponents();
+          
         this.dssv =new DanhSachSinhVienFrame();
+       
         this.desktopPane.add(dssv);
         dssv.setVisible(true);
     }
@@ -179,6 +184,16 @@ public class MainApplication extends javax.swing.JFrame {
             }
         });
     }
+
+    public Connection getKetnoi() {
+        return ketnoi;
+    }
+
+    public void setKetnoi(Connection ketnoi) {
+        this.ketnoi = ketnoi;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;

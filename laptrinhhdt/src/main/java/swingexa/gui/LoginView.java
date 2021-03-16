@@ -6,7 +6,10 @@
 package swingexa.gui;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -104,10 +107,15 @@ public class LoginView extends javax.swing.JFrame {
         dbutils db = new dbutils("qlht", "3306", "root", "@Dmin1234");
         Connection ketnoi = db.lay_ket_noi_csdl();
         if(user.kiem_tra_account(ketnoi)){
-            //JOptionPane.showMessageDialog(this, "Dang nhap thanh cong", "Thong bao ket qua", JOptionPane.INFORMATION_MESSAGE);
-            MainApplication mainfrm = new MainApplication();
-            this.dispose();
-            mainfrm.setVisible(true);
+            try {
+                JOptionPane.showMessageDialog(this, "Dang nhap thanh cong", "Thong bao ket qua", JOptionPane.INFORMATION_MESSAGE);
+                ketnoi.close();
+                this.dispose();
+                MainApplication mainfrm = new MainApplication();
+                mainfrm.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "Username hoac Password sai", "Thong bao ket qua", JOptionPane.ERROR_MESSAGE);
         }

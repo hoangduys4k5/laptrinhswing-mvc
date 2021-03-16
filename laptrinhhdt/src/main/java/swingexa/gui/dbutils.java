@@ -6,7 +6,6 @@
 package swingexa.gui;
 
 
-import dao.Student;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
