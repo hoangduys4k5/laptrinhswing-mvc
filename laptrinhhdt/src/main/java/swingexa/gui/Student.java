@@ -70,6 +70,23 @@ public class Student {
         
     }
     
+    //Hàm lấy ra 1 sinh vien theo id
+    public Student get_student_by_id(int id) throws SQLException{
+        dbutils db = new dbutils("qlht", "3306", "root", "@Dmin1234");
+        Connection conn = db.lay_ket_noi_csdl();
+        String query = "select fullname, sdt, email from student where idstudent = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        Student sv = new Student();
+        if (rs.next()){
+            sv.setFullname(rs.getString("fullname"));
+            sv.setSdt(rs.getString("sdt"));
+            sv.setEmail(rs.getString("email"));
+        }
+        conn.close();
+        return sv;
+    }
     //Hàm lấy ra danh sách các sinh viên trong bang student
     public ArrayList<Student> lay_danh_sach_sinh_vien(){
         ArrayList<Student> result = new ArrayList<>();
