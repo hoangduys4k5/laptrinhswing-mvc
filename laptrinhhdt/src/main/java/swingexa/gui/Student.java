@@ -5,6 +5,14 @@
  */
 package swingexa.gui;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +22,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -24,6 +33,8 @@ public class Student {
     private String fullname;
     private String sdt;
     private String email;
+    private FileInputStream imageIn;
+    private BufferedImage imageOut;
     
     //Xây dựng các hàm khởi tạo
 
@@ -42,6 +53,22 @@ public class Student {
         this.sdt = sdt;
         this.email = email;
     }
+
+    public Student(String fullname, String sdt, String email, 
+                        String imagePath) {
+        this.fullname = fullname;
+        this.sdt = sdt;
+        this.email = email;
+        
+        try {
+            //Đọc ảnh vào bộ nhớ
+            this.imageIn = new FileInputStream(new File(imagePath));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     
        
     //Xây dựng hàm thêm 1 student vào database
@@ -70,6 +97,30 @@ public class Student {
         
     }
     
+    //Hàm chèn dữ liệu sinh viên có ảnh vào csdl
+    public void save_student_with_image(){
+        try {
+            dbutils db = new dbutils("qlht", "3306", "root", "@Dmin1234");
+            Connection ketnoicsdl = db.lay_ket_noi_csdl();
+            // the mysql insert statement
+            String query = " insert into student (fullname, sdt, email, image)"
+                    + " values (?, ?, ?, ?)";
+            // create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = ketnoicsdl.prepareStatement(query);
+            preparedStmt.setString(1, this.fullname);
+            preparedStmt.setString(2, this.sdt);
+            preparedStmt.setString(3, this.email);
+            preparedStmt.setBlob(4, imageIn);
+            
+            // execute the preparedstatement
+            preparedStmt.execute();
+            
+            ketnoicsdl.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     //Hàm lấy ra 1 sinh vien theo id
     public Student get_student_by_id(int id) throws SQLException{
         dbutils db = new dbutils("qlht", "3306", "root", "@Dmin1234");
@@ -87,6 +138,35 @@ public class Student {
         conn.close();
         return sv;
     }
+    
+    //Hàm lấy sinh viên với ảnh theo id
+    public Student get_student_image_by_id(int id){
+        Student sv = new Student();
+        try {
+            dbutils db = new dbutils("qlht", "3306", "root", "@Dmin1234");
+            Connection conn = db.lay_ket_noi_csdl();
+            String query = "select fullname, sdt, email, image from student where idstudent = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()){
+                sv.setIdstudent(idstudent);
+                sv.setFullname(rs.getString("fullname"));
+                sv.setSdt(rs.getString("sdt"));
+                sv.setEmail(rs.getString("email"));
+                //doc anh vao bo nho
+                Blob blob = rs.getBlob("image");
+                InputStream in = blob.getBinaryStream();
+                sv.imageOut = ImageIO.read(in);
+            }
+            conn.close();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sv;
+    }
+    
     //Hàm lấy ra danh sách các sinh viên trong bang student
     public ArrayList<Student> lay_danh_sach_sinh_vien(){
         ArrayList<Student> result = new ArrayList<>();
@@ -194,6 +274,23 @@ public class Student {
         this.email = email;
     }
 
+    public FileInputStream getImageIn() {
+        return imageIn;
+    }
+
+    public void setImageIn(FileInputStream imageIn) {
+        this.imageIn = imageIn;
+    }
+
+    public BufferedImage getImageOut() {
+        return imageOut;
+    }
+
+    public void setImageOut(BufferedImage imageOut) {
+        this.imageOut = imageOut;
+    }
+
+    
     @Override
     public String toString() {
         return "Student{" + "idstudent=" + idstudent + ", fullname=" + fullname + ", sdt=" + sdt + ", email=" + email + '}';

@@ -112,26 +112,22 @@ public class DanhSachSinhVienFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        try {
-            // TODO add your handling code here:
-            int row = jTable1.rowAtPoint(evt.getPoint());
-//        String s = jTable1.getModel().getValueAt(row, 0).toString();
-//        JOptionPane.showMessageDialog(null, s);
-            String s = jTable1.getModel().getValueAt(row, 0).toString();
-            int id = Integer.parseInt(s);
-            
-            JDesktopPane dk = getDesktopPane();
-            
-            SuaDuLieuSinhVienFrame suaframe = new SuaDuLieuSinhVienFrame();
-            suaframe.setIdstudent(id);
-            suaframe.load_student_data();
-            dk.add(suaframe);
-            suaframe.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(DanhSachSinhVienFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        int row = jTable1.rowAtPoint(evt.getPoint());
+        //        String s = jTable1.getModel().getValueAt(row, 0).toString();
+        //        JOptionPane.showMessageDialog(null, s);
+        String s = jTable1.getModel().getValueAt(row, 0).toString();
+        int id = Integer.parseInt(s);
+        JDesktopPane dk = getDesktopPane();
+        SuaDuLieuSinhVienFrame suaframe = new SuaDuLieuSinhVienFrame();
+        suaframe.setIdstudent(id);
+        //suaframe.load_student_data();
+        suaframe.load_student_image_data();
+        dk.add(suaframe);
+        suaframe.setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

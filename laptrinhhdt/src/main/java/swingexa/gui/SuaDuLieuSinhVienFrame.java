@@ -9,6 +9,9 @@ import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,6 +44,16 @@ public class SuaDuLieuSinhVienFrame extends javax.swing.JInternalFrame {
         jtxtSdt.setText(kq.getSdt());
         jtxtEmail.setText(kq.getEmail());
     }
+    
+    public void load_student_image_data(){
+        Student sv = new Student();
+        Student kq = sv.get_student_image_by_id(this.idstudent);
+        jtxtFullname.setText(kq.getFullname());
+        jtxtSdt.setText(kq.getSdt());
+        jtxtEmail.setText(kq.getEmail());
+        ImageIcon icon = new ImageIcon(kq.getImageOut());
+        jlblImage.setIcon(icon);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,6 +72,10 @@ public class SuaDuLieuSinhVienFrame extends javax.swing.JInternalFrame {
         jtxtEmail = new javax.swing.JTextField();
         jbtnUpdate = new javax.swing.JButton();
         jbtnQuit = new javax.swing.JButton();
+        jlblImage = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jtxtImage = new javax.swing.JTextField();
+        jbtnBrowse = new javax.swing.JButton();
 
         jLabel1.setText("Fullname");
 
@@ -80,6 +97,12 @@ public class SuaDuLieuSinhVienFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setText("Image");
+
+        jtxtImage.setText("jTextField1");
+
+        jbtnBrowse.setText("Browse");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,19 +112,28 @@ public class SuaDuLieuSinhVienFrame extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtxtFullname)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jbtnUpdate)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jtxtSdt)
-                                .addComponent(jtxtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                                .addComponent(jtxtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtxtImage, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jbtnBrowse)
+                                    .addComponent(jbtnUpdate))))
                         .addGap(18, 18, 18)
-                        .addComponent(jbtnQuit)
-                        .addGap(0, 40, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbtnQuit)
+                                .addGap(0, 38, Short.MAX_VALUE))
+                            .addComponent(jlblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -112,18 +144,29 @@ public class SuaDuLieuSinhVienFrame extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jtxtFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtxtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jtxtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jtxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jtxtImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnBrowse))
+                        .addGap(0, 10, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jlblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jtxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnUpdate)
                     .addComponent(jbtnQuit))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -157,10 +200,14 @@ public class SuaDuLieuSinhVienFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jbtnBrowse;
     private javax.swing.JButton jbtnQuit;
     private javax.swing.JButton jbtnUpdate;
+    private javax.swing.JLabel jlblImage;
     private javax.swing.JTextField jtxtEmail;
     private javax.swing.JTextField jtxtFullname;
+    private javax.swing.JTextField jtxtImage;
     private javax.swing.JTextField jtxtSdt;
     // End of variables declaration//GEN-END:variables
 }
