@@ -16,6 +16,7 @@ public class MainApplication extends javax.swing.JFrame {
     public DanhSachSinhVienFrame dssv;
     public NhapSinhVienFrame nhapsv;
     public Connection ketnoi;
+    public TimKiemFrame timsv;
     /**
      * Creates new form MainApplication
      */
@@ -69,7 +70,12 @@ public class MainApplication extends javax.swing.JFrame {
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Save");
+        saveMenuItem.setText("Tìm kiếm theo tên");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setMnemonic('a');
@@ -149,6 +155,14 @@ public class MainApplication extends javax.swing.JFrame {
         this.desktopPane.add(nhapsv);
         this.nhapsv.setVisible(true);
     }//GEN-LAST:event_openMenuItemActionPerformed
+
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+        // TODO add your handling code here:
+        this.dssv.dispose();
+        this.timsv = new TimKiemFrame();
+        this.desktopPane.add(timsv);
+        this.timsv.setVisible(true);
+    }//GEN-LAST:event_saveMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
