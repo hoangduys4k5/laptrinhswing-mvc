@@ -192,6 +192,30 @@ public class Student {
         return result;
     }
     
+    //Ham tim kiem sinh vien theo fullname
+    public ArrayList<Student> tim_kiem_sinh_vien_theo_fulllname(String s){
+        ArrayList<Student> result = new ArrayList<>();
+        try {
+            //code của bạn ở đây
+            dbutils db = new dbutils("qlht", "3306", "root", "@Dmin1234");
+            Connection conn = db.lay_ket_noi_csdl(); 
+            String query = "select idstudent, fullname, sdt, email from student where fullname like ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, '%' + s + '%');
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Student sv = new Student(rs.getInt("idstudent"), 
+                                        rs.getString("fullname"), 
+                                        rs.getString("sdt"), 
+                                        rs.getString("email"));
+                result.add(sv);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
     
     //Hàm cập nhật sinh viên hiện tại vào csdl
     public void update_current_student(){
