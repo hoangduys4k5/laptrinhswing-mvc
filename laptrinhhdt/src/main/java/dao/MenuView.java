@@ -26,6 +26,7 @@ public class MenuView {
         System.out.println("Ban chon chuc nang nao?");
         Scanner sc = new Scanner(System.in);
         int kq = Integer.parseInt(sc.nextLine());
-        return kq;
+        return kq;// duy
+        
     }
 }
